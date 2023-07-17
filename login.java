@@ -17,7 +17,10 @@ public class login extends JFrame {
         add(image);
 
         //  setting the heading
-        
+        JLabel header = new JLabel("Quiz Application");
+        header.setBounds(780, 60, 300, 45);
+        header.setFont(new Font("SanSerif", Font.BOLD, 25));
+        add(header);
 
         setSize(1200, 600);
         setLocation(400, 200);
