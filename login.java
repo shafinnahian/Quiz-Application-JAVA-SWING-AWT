@@ -3,7 +3,9 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class login extends JFrame{
+public class login extends JFrame implements ActionListener{
+
+    JButton login, back;
 
     login(){
         getContentPane().setBackground(Color.WHITE);
@@ -35,24 +37,35 @@ public class login extends JFrame{
         add(tfname);
 
         //add button to enter the next phase and take input of name
-        JButton login = new JButton("Login");
+        login = new JButton("Login");
         login.setBorderPainted(false);
         login.setBounds(730, 270, 120, 25);
         login.setBackground(new Color(83, 226, 245));
         login.setForeground(Color.WHITE);
+        login.addActionListener(this);
         add(login);
 
         //exit button
-        JButton back = new JButton("Exit");
+        back = new JButton("Exit");
         back.setBorderPainted(false);
         back.setBounds(915, 270, 120, 25);
         back.setBackground(new Color(83, 226, 245));
         back.setForeground(Color.WHITE);
+        back.addActionListener(this);
         add(back);
 
         setSize(1200, 600);
         setLocation(400, 200);
         setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent ae){
+        if (ae.getSource() == login){
+            setVisible(false);
+            new Rules();
+        } else if (ae.getSource() == back){
+            setVisible(false);
+        }
     }
     public static void main(String[] args) {
         new login();
