@@ -6,6 +6,7 @@ import javax.swing.*;
 public class login extends JFrame implements ActionListener{
 
     JButton login, back;
+    JTextField tfname;
 
     login(){
         getContentPane().setBackground(Color.WHITE);
@@ -32,7 +33,7 @@ public class login extends JFrame implements ActionListener{
         add(name);
 
         // taking input from users
-        JTextField tfname = new JTextField();
+        tfname = new JTextField();
         tfname.setBounds(730, 180, 300, 30);
         add(tfname);
 
@@ -61,8 +62,9 @@ public class login extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource() == login){
+            String name = tfname.getText();
             setVisible(false);
-            new Rules();
+            new Rules(name);
         } else if (ae.getSource() == back){
             setVisible(false);
         }
