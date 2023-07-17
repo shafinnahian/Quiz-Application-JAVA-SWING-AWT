@@ -1,8 +1,10 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class Rules extends JFrame{
+public class Rules extends JFrame implements ActionListener{
     String name;
 
     JButton next, back;
@@ -26,7 +28,7 @@ public class Rules extends JFrame{
 
         // enter rules
         JLabel rules = new JLabel();
-        rules.setBounds(300, 120, 700, 350);
+        rules.setBounds(300, 100, 700, 350);
         rules.setFont(new Font("SanSerif", Font.PLAIN, 16));
         rules.setText(
             "<html>"+ 
@@ -43,11 +45,35 @@ public class Rules extends JFrame{
         add(rules);
 
         // setting the buttons
+        next = new JButton("Accept");
+        next.setBorderPainted(false);
+        next.setBounds(400, 450, 100, 30);
+        next.setBackground(new Color(83, 226, 245));
+        next.setForeground(Color.WHITE);
+
+        add(next);
+
+        back = new JButton("Back");
+        back.setBorderPainted(false);
+        back.setBounds(650, 450, 100, 30);
+        back.setBackground(new Color(83, 226, 245));
+        back.setForeground(Color.WHITE);
+        back.addActionListener(this);
+        add(back);
         
-        
-        setSize(1200, 600);
+        setSize(1200, 650);
         setLocation(400, 200);
         setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent ae){
+        if (ae.getSource() == next){
+            setVisible(false);
+
+        } else if (ae.getSource() == back){
+            setVisible(false);
+            new login();
+        }
     }
 
     public static void main(String[] args) {
