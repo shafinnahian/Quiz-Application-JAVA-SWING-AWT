@@ -51,6 +51,8 @@ public class Rules extends JFrame implements ActionListener{
         next.setBackground(new Color(83, 226, 245));
         next.setForeground(Color.WHITE);
 
+        next.addActionListener(this);
+
         add(next);
 
         back = new JButton("Back");
@@ -69,6 +71,7 @@ public class Rules extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource() == next){
             setVisible(false);
+            new Quiz(name);
 
         } else if (ae.getSource() == back){
             setVisible(false);
