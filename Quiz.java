@@ -26,10 +26,14 @@ public class Quiz extends JFrame implements ActionListener{
 
     JButton next, submit, hint;
 
-    public static int timer = 5;
+    public static int timer = 15;
     public static int ansGiven = 0;
+    public static int score = 0;
 
-    Quiz(){
+    String username;
+
+    Quiz(String username){
+        this.username = username;
         setBounds(250, 0, 1440, 1080);
         getContentPane().setBackground(Color.white);
         setLayout(null);
@@ -39,6 +43,7 @@ public class Quiz extends JFrame implements ActionListener{
         // setting image for login
 
         JLabel image = new JLabel(i1);
+        // image.setBounds(0, 0, 1440, 392);
         image.setBounds(0, 0, 1440, 392);
         add(image);
 
@@ -247,15 +252,39 @@ public class Quiz extends JFrame implements ActionListener{
             opt3.setEnabled(true);
             opt4.setEnabled(true);
 
-            // checks if user answered or not
-            if (groupOptions.getSelection() == null){
-                userAns[count][0] = ""; // if user didn't select answer, it adds empty string to userAns[][];
-            } else {
-                userAns[count][0] = groupOptions.getSelection().getActionCommand(); // puts the answer in the userAns[][]
+            if (count == 8){
+                next.setEnabled(false);
+                submit.setEnabled(true);
             }
-            
-            count++;
-            start(count);
+
+            if (count == 9) {   // submit button (auto)
+                if (groupOptions.getSelection() == null){
+                    userAns[count][0] = ""; // if user didn't select answer, it adds empty string to userAns[][];
+                } else {
+                    userAns[count][0] = groupOptions.getSelection().getActionCommand(); // puts the answer in the userAns[][]
+                }
+                
+                for (int i = 0; i < userAns.length; i++) {  // checks if answer is correct or not
+                    if (userAns[i][0].equals(answers[i][1])){
+                        score += 10;
+                    }
+                }
+
+                setVisible(false);
+                new Score(username, score);
+
+            } else {            // next button (auto)
+
+                // checks if user answered or not
+                if (groupOptions.getSelection() == null){
+                    userAns[count][0] = ""; // if user didn't select answer, it adds empty string to userAns[][];
+                } else {
+                    userAns[count][0] = groupOptions.getSelection().getActionCommand(); // puts the answer in the userAns[][]
+                }
+                
+                count++;
+                start(count);
+            }
         }
     }
 
@@ -313,11 +342,29 @@ public class Quiz extends JFrame implements ActionListener{
                 opt1.setEnabled(false);
                 opt4.setEnabled(false);
             }
-        } else {
 
+            hint.setEnabled(false);
+
+        } else if (ae.getSource() == submit){
+            ansGiven = 1;
+            if (groupOptions.getSelection() == null){
+                userAns[count][0] = ""; // if user didn't select answer, it adds empty string to userAns[][];
+            } else {
+                userAns[count][0] = groupOptions.getSelection().getActionCommand(); // puts the answer in the userAns[][]
+            }
+            
+            for (int i = 0; i < userAns.length; i++) {  // checks if answer is correct or not
+                if (userAns[i][0].equals(answers[i][1])){
+                    score += 10;
+                }
+            }
+
+            setVisible(false);
+            //Score class
+            new Score(username, score);
         }
     }
     public static void main(String[] args) {
-        new Quiz();
+        new Quiz("User");
     }
 }
